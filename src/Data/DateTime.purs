@@ -56,10 +56,10 @@ modifyTimeF f (DateTime d t) = DateTime d <$> f t
 -- | if the resulting date would be outside of the range of valid dates.
 adjust :: forall d. Duration d => d -> DateTime -> Maybe DateTime
 adjust d dt =
-  adjustImpl Just Nothing (fromDuration d) (toRecord dt) >>= \rec ->
+  adjustImpl Just Nothing (fromDuration d) (toRecord dt) >>= \rec_ ->
     DateTime
-      <$> join (exactDate <$> toEnum rec.year <*> toEnum rec.month <*> toEnum rec.day)
-      <*> (Time <$> toEnum rec.hour <*> toEnum rec.minute <*> toEnum rec.second <*> toEnum rec.millisecond)
+      <$> join (exactDate <$> toEnum rec_.year <*> toEnum rec_.month <*> toEnum rec_.day)
+      <*> (Time <$> toEnum rec_.hour <*> toEnum rec_.minute <*> toEnum rec_.second <*> toEnum rec_.millisecond)
 
 -- | Calculates the difference between two date/time values, returning the
 -- | result as a duration.
